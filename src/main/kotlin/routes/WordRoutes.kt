@@ -20,21 +20,23 @@ fun Route.wordRoutes(){
         }
 
         post("/delete") {
-            val name = call.request.queryParameters["english"]?: return@post call.respond(
-                Response("Missing parameter english", HttpStatusCode.BadRequest.value, null)
-            )
+            val name = call.receiveText()
             if (wordDao.deleteWord(name)){
                 call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
+            }else{
+                call.respond(Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, null))
             }
         }
 
         post("/deleteAll") {
             if (wordDao.deleteAllWord()){
                 call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
+            }else{
+                call.respond(Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, null))
             }
         }
 
-        get("/update") {
+        post("/update") {
             val word = call.receive<Word>()
             call.respond(
                 Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.updateWord(word))

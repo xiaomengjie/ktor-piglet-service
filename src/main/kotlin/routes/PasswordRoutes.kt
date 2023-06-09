@@ -20,21 +20,23 @@ fun Route.passwordRoutes(){
         }
 
         post("/delete") {
-            val name = call.request.queryParameters["name"]?: return@post call.respond(
-                Response("Missing parameter name", HttpStatusCode.BadRequest.value, null)
-            )
+            val name = call.receive<String>()
             if (passwordDao.deletePassword(name)){
                 call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
+            }else{
+                call.respond(Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, null))
             }
         }
 
         post("/deleteAll") {
             if (passwordDao.deleteAllPassword()){
                 call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
+            }else{
+                call.respond(Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, null))
             }
         }
 
-        get("/update") {
+        post("/update") {
             val password = call.receive<Password>()
             call.respond(
                 Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, passwordDao.updatePassword(password))
