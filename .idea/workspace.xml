@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cfae98a-b3f0-4f1a-a3a0-b922efc14da1" name="Changes" comment="" />
+    <list default="true" id="6cfae98a-b3f0-4f1a-a3a0-b922efc14da1" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Application.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/db/DatabaseFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/db/DatabaseFactory.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOPassword.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOPassword.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOPasswordImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOPasswordImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOWord.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOWord.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOWordImpl.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/db/dao/DAOWordImpl.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/models/Password.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/models/Password.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/routes/PasswordRoutes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/routes/PasswordRoutes.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/routes/WordRoutes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/routes/WordRoutes.kt" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +30,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Qx7rCuMUFfFk454jSNDVoP6vcz" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />

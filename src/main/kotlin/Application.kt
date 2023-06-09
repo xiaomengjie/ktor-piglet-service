@@ -1,6 +1,6 @@
 package com.example
 
-import com.example.database.DatabaseFactory
+import com.example.db.DatabaseFactory
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import com.example.plugins.*

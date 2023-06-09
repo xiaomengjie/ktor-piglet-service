@@ -1,4 +1,4 @@
-package com.example.database
+package com.example.db
 
 import kotlinx.coroutines.Dispatchers
 import models.Passwords
@@ -11,7 +11,8 @@ import org.jetbrains.exposed.sql.transactions.transaction
 object DatabaseFactory {
     fun init(){
         val driverClassName = "org.h2.Driver"
-        val jdbcURL = "jdbc:h2:file:./database/saveps"
+//        val jdbcURL = "jdbc:h2:file:~/database/saveps"
+        val jdbcURL = "jdbc:h2:file:/usr/local/tomcat/database/savespservice"
         val database = Database.connect(jdbcURL, driverClassName)
         transaction(database) {
             SchemaUtils.create(Passwords, Words)

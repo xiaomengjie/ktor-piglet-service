@@ -1,39 +1,69 @@
 package routes
 
-import com.example.database.dao.wordDao
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import com.example.bean.Response
+import com.example.db.dao.wordDao
 import models.Word
 
 fun Route.wordRoutes(){
     route("/word"){
 
-        get{
-            call.request.queryParameters["english"]?.let {
-                val result = wordDao.queryWord(it, "english")
-                call.respond(
-                    Response("OK", HttpStatusCode.OK.value, result)
-                )
-                return@get
-            }
+        post("/insert") {
+            val word = call.receive<Word>()
+            call.respond(
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.increaseWord(word))
+            )
+        }
 
-            call.request.queryParameters["chinese"]?.let {
-                val result = wordDao.queryWord(it, "chinese")
-                call.respond(
-                    Response("OK", HttpStatusCode.OK.value, result)
-                )
+        post("/delete") {
+            val name = call.request.queryParameters["english"]?: return@post call.respond(
+                Response("Missing parameter english", HttpStatusCode.BadRequest.value, null)
+            )
+            if (wordDao.deleteWord(name)){
+                call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
             }
         }
 
-        post {
-            val receive = call.receive<Word>()
-            val result = wordDao.increaseWord(receive)
+        post("/deleteAll") {
+            if (wordDao.deleteAllWord()){
+                call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
+            }
+        }
+
+        get("/update") {
+            val word = call.receive<Word>()
             call.respond(
-                Response("OK", HttpStatusCode.OK.value, result)
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.updateWord(word))
+            )
+        }
+
+        get("/query") {
+            val english = call.request.queryParameters["english"]
+            val chinese = call.request.queryParameters["chinese"]
+            if (!english.isNullOrEmpty()){
+                call.respond(
+                    Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWord(english, "english"))
+                )
+                return@get
+            }
+            if (!chinese.isNullOrEmpty()){
+                call.respond(
+                    Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWord(chinese, "chinese"))
+                )
+                return@get
+            }
+            call.respond(
+                Response("Missing parameter english/chinese", HttpStatusCode.BadRequest.value, null)
+            )
+        }
+
+        get("/queryAll") {
+            call.respond(
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryAllWord())
             )
         }
     }

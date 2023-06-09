@@ -1,41 +1,58 @@
 package routes
 
-import com.example.database.dao.passwordDao
+import com.example.db.dao.passwordDao
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import io.ktor.server.util.*
 import models.Password
 import com.example.bean.Response
 
 fun Route.passwordRoutes(){
     route("/password"){
 
-        get {
-            val name = call.request.queryParameters["name"]?: return@get call.respond(
-                Response("Missing parameter name", HttpStatusCode.BadRequest.value, null)
-            )
-            val result = passwordDao.queryPassword(name)
+        post("/insert") {
+            val password = call.receive<Password>()
             call.respond(
-                Response(
-                    if (result == null) "No Password Found" else "OK",
-                    if (result == null) HttpStatusCode.NotFound.value else HttpStatusCode.OK.value,
-                    result
-                )
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, passwordDao.increasePassword(password))
             )
         }
 
-        post {
+        post("/delete") {
+            val name = call.request.queryParameters["name"]?: return@post call.respond(
+                Response("Missing parameter name", HttpStatusCode.BadRequest.value, null)
+            )
+            if (passwordDao.deletePassword(name)){
+                call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
+            }
+        }
+
+        post("/deleteAll") {
+            if (passwordDao.deleteAllPassword()){
+                call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
+            }
+        }
+
+        get("/update") {
             val password = call.receive<Password>()
-            val result = passwordDao.increasePassword(password)
             call.respond(
-                Response(
-                    if (result == null) "Increase Failure" else "OK",
-                    if (result == null) HttpStatusCode.BadRequest.value else HttpStatusCode.OK.value,
-                    result
-                )
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, passwordDao.updatePassword(password))
+            )
+        }
+
+        get("/query") {
+            val name = call.request.queryParameters["name"]?: return@get call.respond(
+                Response("Missing parameter name", HttpStatusCode.BadRequest.value, null)
+            )
+            call.respond(
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, passwordDao.queryPassword(name))
+            )
+        }
+
+        get("/queryAll") {
+            call.respond(
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, passwordDao.queryAllPassword())
             )
         }
     }

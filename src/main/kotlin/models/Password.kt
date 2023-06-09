@@ -12,7 +12,7 @@ data class Password(
 
 object Passwords: Table(){
     val id = integer("id").autoIncrement()
-    val name = varchar("name", 128)
+    val name = varchar("name", 64)
     val content = varchar("content", 128)
     val size = integer("size")
 }
