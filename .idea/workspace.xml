@@ -4,13 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6cfae98a-b3f0-4f1a-a3a0-b922efc14da1" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Application.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Application.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/db/DatabaseFactory.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/db/DatabaseFactory.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/routes/PasswordRoutes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/routes/PasswordRoutes.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/routes/WordRoutes.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/routes/WordRoutes.kt" afterDir="false" />
-    </list>
+    <list default="true" id="6cfae98a-b3f0-4f1a-a3a0-b922efc14da1" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,11 +31,13 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/xiaomengjie/ideaprojects/ktor-saveps-service/src/main/resources&quot;
+    &quot;last_opened_file_path&quot;: &quot;/Users/xiaomengjie/ideaprojects/ktor-saveps-service/software&quot;
   }
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/software" />
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/main/kotlin" />
@@ -81,5 +77,22 @@
       <updated>1686283577898</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
