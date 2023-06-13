@@ -21,11 +21,17 @@ class DAOWordImpl: DAOWord {
         DatabaseFactory.dbQuery {
             val selectResult = queryWord(word.english, "english")
             if (selectResult.isEmpty()) {
-                val insertStatement = Passwords.insert {
-                    it[Words.english] = word.english
-                    it[Words.chinese] = word.chinese
-                    it[Words.americaPronunciation] = word.americaPronunciation
-                    it[Words.englandPronunciation] = word.englandPronunciation
+                val insertStatement = Words.insert {
+                    it[english] = word.english
+                    val maxLength = (chinese.columnType as VarCharColumnType).colLength
+                    val chineseText = if (word.chinese.length > maxLength){
+                        word.chinese.substring(0, maxLength)
+                    }else{
+                        word.chinese
+                    }
+                    it[chinese] = chineseText
+                    it[americaPronunciation] = word.americaPronunciation
+                    it[englandPronunciation] = word.englandPronunciation
                 }
                 insertStatement.resultedValues?.singleOrNull()?.let(::resultRowToWord)
             } else {
@@ -45,11 +51,11 @@ class DAOWordImpl: DAOWord {
 
     override suspend fun updateWord(word: Word): Boolean =
         DatabaseFactory.dbQuery {
-            Passwords.update({Words.english eq word.english}){
-                it[Words.english] = word.english
-                it[Words.chinese] = word.chinese
-                it[Words.americaPronunciation] = word.americaPronunciation
-                it[Words.englandPronunciation] = word.englandPronunciation
+            Words.update({Words.english eq word.english}){
+                it[english] = word.english
+                it[chinese] = word.chinese
+                it[americaPronunciation] = word.americaPronunciation
+                it[englandPronunciation] = word.englandPronunciation
             } > 0
         }
 

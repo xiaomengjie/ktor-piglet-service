@@ -32,7 +32,7 @@ fun main() {
 //        module(Application::module)
 //    }
 
-    embeddedServer(Tomcat, port = 8090, host = "127.0.0.1", module = Application::module)
+    embeddedServer(Tomcat, port = 8080, host = "127.0.0.1", module = Application::module)
         .start(wait = true)
 }
 

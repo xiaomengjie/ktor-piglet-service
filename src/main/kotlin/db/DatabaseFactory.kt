@@ -15,8 +15,7 @@ object DatabaseFactory {
         val jdbcURL = "jdbc:h2:file:/usr/local/tomcat/database/savespservice"
         val database = Database.connect(jdbcURL, driverClassName)
         transaction(database) {
-            SchemaUtils.create(Passwords)
-            SchemaUtils.createMissingTablesAndColumns(Words)
+            SchemaUtils.create(Passwords, Words)
         }
     }
 
