@@ -11,7 +11,10 @@ class DAOWordImpl: DAOWord {
 
     private fun resultRowToWord(resultRow: ResultRow): Word =
         Word(
-            resultRow[Words.english], resultRow[Words.chinese], resultRow[Words.pronunciation]
+            resultRow[Words.english],
+            resultRow[Words.chinese],
+            resultRow[Words.americaPronunciation],
+            resultRow[Words.englandPronunciation]
         )
 
     override suspend fun increaseWord(word: Word): Word? =
@@ -21,7 +24,8 @@ class DAOWordImpl: DAOWord {
                 val insertStatement = Passwords.insert {
                     it[Words.english] = word.english
                     it[Words.chinese] = word.chinese
-                    it[Words.pronunciation] = word.pronunciation
+                    it[Words.americaPronunciation] = word.americaPronunciation
+                    it[Words.englandPronunciation] = word.englandPronunciation
                 }
                 insertStatement.resultedValues?.singleOrNull()?.let(::resultRowToWord)
             } else {
@@ -44,7 +48,8 @@ class DAOWordImpl: DAOWord {
             Passwords.update({Words.english eq word.english}){
                 it[Words.english] = word.english
                 it[Words.chinese] = word.chinese
-                it[Words.pronunciation] = word.pronunciation
+                it[Words.americaPronunciation] = word.americaPronunciation
+                it[Words.englandPronunciation] = word.englandPronunciation
             } > 0
         }
 

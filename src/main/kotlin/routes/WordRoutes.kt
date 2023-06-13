@@ -20,20 +20,16 @@ fun Route.wordRoutes(){
         }
 
         post("/delete") {
-            val name = call.receiveText()
-            if (wordDao.deleteWord(name)){
-                call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
-            }else{
-                call.respond(Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, null))
-            }
+            val english = call.receiveParameters()["english"].toString()
+            call.respond(
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.deleteWord(english))
+            )
         }
 
         post("/deleteAll") {
-            if (wordDao.deleteAllWord()){
-                call.respond(Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, null))
-            }else{
-                call.respond(Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, null))
-            }
+            call.respond(
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.deleteAllWord())
+            )
         }
 
         post("/update") {
