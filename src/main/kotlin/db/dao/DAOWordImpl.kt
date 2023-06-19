@@ -1,7 +1,6 @@
 package com.example.db.dao
 
 import com.example.db.DatabaseFactory
-import models.Passwords
 import models.Word
 import models.Words
 import org.jetbrains.exposed.sql.*
@@ -23,13 +22,7 @@ class DAOWordImpl: DAOWord {
             if (selectResult.isEmpty()) {
                 val insertStatement = Words.insert {
                     it[english] = word.english
-                    val maxLength = (chinese.columnType as VarCharColumnType).colLength
-                    val chineseText = if (word.chinese.length > maxLength){
-                        word.chinese.substring(0, maxLength)
-                    }else{
-                        word.chinese
-                    }
-                    it[chinese] = chineseText
+                    it[chinese] = word.chinese
                     it[americaPronunciation] = word.americaPronunciation
                     it[englandPronunciation] = word.englandPronunciation
                 }

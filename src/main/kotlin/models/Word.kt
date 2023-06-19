@@ -14,7 +14,7 @@ data class Word(
 object Words: Table(){
     val id = integer("id").autoIncrement()
     val english = varchar("english", 64)
-    val chinese = varchar("chinese", 128)
+    val chinese = varchar("chinese", 512)
     val americaPronunciation = varchar("americaPronunciation", 64)
     val englandPronunciation = varchar("englandPronunciation", 64)
 }
