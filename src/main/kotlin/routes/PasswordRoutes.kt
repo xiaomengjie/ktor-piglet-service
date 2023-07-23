@@ -1,6 +1,6 @@
 package routes
 
-import com.example.db.dao.passwordDao
+import com.example.db.dao.password.passwordDao
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*

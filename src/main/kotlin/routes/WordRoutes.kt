@@ -6,36 +6,37 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import com.example.bean.Response
-import com.example.db.dao.wordDao
+import com.example.db.dao.word.wordDao
 import models.Word
 
 fun Route.wordRoutes(){
     route("/word"){
 
+        //content-type: application/json
         post("/insert") {
-            val word = call.receive<Word>()
+            val words = call.receive<List<Word>>()
             call.respond(
-                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.increaseWord(word))
+                wordDao.increaseWords(words).run {
+                    if (this){
+                        Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, true)
+                    }else{
+                        Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, false)
+                    }
+                }
             )
         }
 
+        //content-type: application/json
         post("/delete") {
-            val english = call.receiveParameters()["english"].toString()
+            val englishes = call.receive<List<String>>()
             call.respond(
-                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.deleteWord(english))
-            )
-        }
-
-        post("/deleteAll") {
-            call.respond(
-                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.deleteAllWord())
-            )
-        }
-
-        post("/update") {
-            val word = call.receive<Word>()
-            call.respond(
-                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.updateWord(word))
+                wordDao.deleteWords(englishes).run {
+                    if (this){
+                        Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, true)
+                    }else{
+                        Response(HttpStatusCode.BadRequest.description, HttpStatusCode.BadRequest.value, false)
+                    }
+                }
             )
         }
 
@@ -45,26 +46,20 @@ fun Route.wordRoutes(){
             //英译汉
             if (!english.isNullOrEmpty()){
                 call.respond(
-                    Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWord(english, "english"))
+                    Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWords(english = english))
                 )
                 return@get
             }
             //汉译英
             if (!chinese.isNullOrEmpty()){
                 call.respond(
-                    Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWord(chinese, "chinese"))
+                    Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWords(chinese = chinese))
                 )
                 return@get
             }
-            //没有参数
+            //没有参数，查全部
             call.respond(
-                Response("Missing parameter english/chinese", HttpStatusCode.BadRequest.value, null)
-            )
-        }
-
-        get("/queryAll") {
-            call.respond(
-                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryAllWord())
+                Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWords())
             )
         }
     }

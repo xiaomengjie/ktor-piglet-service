@@ -1,7 +1,7 @@
 package com.example.net
 
 import bean.YDResponse
-import com.example.xiao.piglet.tool.MessageDigestUtil
+import com.example.sha256
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
@@ -11,6 +11,9 @@ import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
 import java.util.*
 
+/**
+ * 网络请求
+ */
 object NetworkClient {
 
     private val httpClient = HttpClient {
@@ -43,15 +46,4 @@ object NetworkClient {
         if (content.length <= 20) return content
         return content.substring(0, 10) + content.length + content.substring(content.length - 10, content.length)
     }
-}
-
-fun String.sha256(): String = MessageDigestUtil.sha256(this)
-
-fun List<String>.toText(): String{
-    return StringBuilder().apply {
-        this@toText.forEach {
-            append(it)
-            append("\n")
-        }
-    }.toString()
 }

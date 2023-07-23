@@ -4,6 +4,8 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /*
+有道翻译返回结果bean
+
 * {
   "errorCode":"0",
   "query":"good", //查询正确时，一定存在

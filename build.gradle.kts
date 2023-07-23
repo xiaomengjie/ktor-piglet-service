@@ -40,6 +40,7 @@ dependencies {
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
+    testImplementation("io.ktor:ktor-client-mock:$ktor_version")
 
     //SSL
     implementation("io.ktor:ktor-network-tls-certificates:$ktor_version")
@@ -51,6 +52,7 @@ dependencies {
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
+    testImplementation("io.ktor:ktor-server-test-host-jvm:2.3.1")
 }
 
 gretty {

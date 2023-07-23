@@ -2,6 +2,9 @@ package com.example.xiao.piglet.tool
 
 import java.security.MessageDigest
 
+/**
+ * 信息摘要（hash）
+ */
 object MessageDigestUtil {
 
     private val HEX_CHARS = charArrayOf(
@@ -29,6 +32,4 @@ object MessageDigestUtil {
         }
         return r.toString()
     }
-
-
 }

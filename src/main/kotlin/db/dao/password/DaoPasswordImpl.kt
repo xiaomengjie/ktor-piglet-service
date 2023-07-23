@@ -1,4 +1,4 @@
-package com.example.db.dao
+package com.example.db.dao.password
 
 import com.example.db.DatabaseFactory
 import models.Password
@@ -6,7 +6,7 @@ import models.Passwords
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 
-class DAOPasswordImpl: DAOPassword {
+class DaoPasswordImpl: DaoPassword {
 
     private fun resultRowToPassword(row: ResultRow) = Password(
         name = row[Passwords.name],
@@ -63,4 +63,4 @@ class DAOPasswordImpl: DAOPassword {
         }
 }
 
-val passwordDao: DAOPassword = DAOPasswordImpl()
+val passwordDao: DaoPassword = DaoPasswordImpl()

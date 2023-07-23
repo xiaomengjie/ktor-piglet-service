@@ -1,8 +1,8 @@
-package com.example.db.dao
+package com.example.db.dao.password
 
 import models.Password
 
-interface DAOPassword {
+interface DaoPassword {
 
     //添加密码
     suspend fun increasePassword(password: Password): Password?
