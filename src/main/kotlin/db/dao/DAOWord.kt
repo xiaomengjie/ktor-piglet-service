@@ -1,6 +1,5 @@
 package com.example.db.dao
 
-import models.Password
 import models.Word
 
 interface DAOWord {

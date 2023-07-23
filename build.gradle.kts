@@ -34,7 +34,9 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
+    implementation("org.jetbrains.exposed:exposed-java-time:$exposed_version")
     implementation("com.h2database:h2:$h2_version")
+    implementation("io.ktor:ktor-client-cio-jvm:2.3.1")
 
     testImplementation("io.ktor:ktor-server-tests-jvm:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
@@ -44,6 +46,11 @@ dependencies {
 
     //WAR
     implementation("io.ktor:ktor-server-servlet-jakarta:$ktor_version")
+
+    //HTTP
+    implementation("io.ktor:ktor-client-core:$ktor_version")
+    implementation("io.ktor:ktor-client-cio:$ktor_version")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
 }
 
 gretty {

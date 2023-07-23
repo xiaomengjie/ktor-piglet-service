@@ -42,18 +42,21 @@ fun Route.wordRoutes(){
         get("/query") {
             val english = call.request.queryParameters["english"]
             val chinese = call.request.queryParameters["chinese"]
+            //英译汉
             if (!english.isNullOrEmpty()){
                 call.respond(
                     Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWord(english, "english"))
                 )
                 return@get
             }
+            //汉译英
             if (!chinese.isNullOrEmpty()){
                 call.respond(
                     Response(HttpStatusCode.OK.description, HttpStatusCode.OK.value, wordDao.queryWord(chinese, "chinese"))
                 )
                 return@get
             }
+            //没有参数
             call.respond(
                 Response("Missing parameter english/chinese", HttpStatusCode.BadRequest.value, null)
             )

@@ -1,2 +1,2 @@
-rootProject.name = "ktorsavepsservice"
+rootProject.name = "ktorpigletservice"
 
