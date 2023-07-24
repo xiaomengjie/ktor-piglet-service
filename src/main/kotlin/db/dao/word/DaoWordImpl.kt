@@ -70,7 +70,7 @@ class DaoWordImpl: DaoWord {
             }else if (chinese.isNotEmpty()){
                 val words = Words.select { Words.chinese like "%${chinese}%" }.map(::resultRowToWord).toMutableList()
                 if (words.isEmpty()) {
-                    val searchFromYD = NetworkClient.searchFromYD(english, "zh-CHS", "en")
+                    val searchFromYD = NetworkClient.searchFromYD(chinese, "zh-CHS", "en")
                     searchFromYD.basic.explains.forEach {
                         words.add(ydResponseToWord(NetworkClient.searchFromYD(it, "en", "zh-CHS")))
                     }
