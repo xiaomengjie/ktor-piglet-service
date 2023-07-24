@@ -5,9 +5,12 @@ import com.example.sha256
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
+import kotlinx.coroutines.delay
 import kotlinx.serialization.json.Json
 import java.util.*
 
@@ -27,7 +30,7 @@ object NetworkClient {
     private const val YD_TRANSLATE_SECRET = "V5T4XPbzd8YWwCJLxBiyoUX9Bwb5JZWo"
 
     suspend fun searchFromYD(keyword: String, from: String, to: String): YDResponse {
-        val httpResponse = httpClient.submitForm("https://openapi.youdao.com/api/", formParameters = parameters {
+        val parameters = parameters {
             append("q", keyword)
             append("from", from)
             append("to", to)
@@ -38,8 +41,14 @@ object NetworkClient {
             append("curtime", systemTime)
             append("sign", "${YD_TRANSLATE_APP_KEY}${getInput(keyword)}$salt$systemTime$YD_TRANSLATE_SECRET".sha256())
             append("signType", "v3")
-        })
-        return httpResponse.body<YDResponse>()
+        }
+        val httpResponse = httpClient.submitForm("https://openapi.youdao.com/api/", formParameters = parameters)
+        val body = httpResponse.body<YDResponse>()
+        if (body.errorCode == "411"){
+            delay(500)
+            return httpClient.submitForm("https://openapi.youdao.com/api/", formParameters = parameters).body<YDResponse>()
+        }
+        return body
     }
 
     private fun getInput(content: String): String {
