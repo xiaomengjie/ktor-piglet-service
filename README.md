@@ -6,7 +6,7 @@
 ### Mac下上传文件到Linux
     scp 本地文件路径 root@119.91.136.187:远程文件路径
 
-    scp ./Desktop/ktorpigletservice.war root@119.91.136.187:/usr/local/tomcat/apache-tomcat-10.1.9/webapps
+    scp ~/Desktop/ktorpigletservice.war root@119.91.136.187:/usr/local/tomcat/apache-tomcat-10.1.9/webapps
 
 
 ### 手动搭建Java Web环境（ CentOS 7.6为例）
