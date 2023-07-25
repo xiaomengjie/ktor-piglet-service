@@ -5,12 +5,9 @@ import com.example.sha256
 import io.ktor.client.*
 import io.ktor.client.call.*
 import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
-import io.ktor.client.statement.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.json.*
-import kotlinx.coroutines.delay
 import kotlinx.serialization.json.Json
 import java.util.*
 
@@ -43,12 +40,7 @@ object NetworkClient {
             append("signType", "v3")
         }
         val httpResponse = httpClient.submitForm("https://openapi.youdao.com/api/", formParameters = parameters)
-        val body = httpResponse.body<YDResponse>()
-        if (body.errorCode == "411"){
-            delay(500)
-            return httpClient.submitForm("https://openapi.youdao.com/api/", formParameters = parameters).body<YDResponse>()
-        }
-        return body
+        return httpResponse.body<YDResponse>()
     }
 
     private fun getInput(content: String): String {

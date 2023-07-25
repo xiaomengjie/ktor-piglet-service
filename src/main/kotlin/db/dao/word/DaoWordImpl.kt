@@ -4,6 +4,7 @@ import bean.YDResponse
 import com.example.db.DatabaseFactory
 import com.example.net.NetworkClient
 import com.example.toTextWithLine
+import kotlinx.coroutines.delay
 import models.Word
 import models.Words
 import org.jetbrains.exposed.sql.*
@@ -15,8 +16,10 @@ class DaoWordImpl: DaoWord {
         Word(
             resultRow[Words.english],
             resultRow[Words.chinese],
-            resultRow[Words.americaPronunciation],
-            resultRow[Words.englandPronunciation]
+            resultRow[Words.usPhonetic],
+            resultRow[Words.ukPhonetic],
+            resultRow[Words.usSpeech],
+            resultRow[Words.ukSpeech]
         )
 
     //将英译汉返回的结果转换为word类
@@ -25,7 +28,9 @@ class DaoWordImpl: DaoWord {
             ydResponse.query,
             ydResponse.basic.explains.toTextWithLine(),
             "/${ydResponse.basic.usPhonetic}/",
-            "/${ydResponse.basic.ukPhonetic}/"
+            "/${ydResponse.basic.ukPhonetic}/",
+            ydResponse.basic.usSpeech,
+            ydResponse.basic.ukSpeech
         )
 
     override suspend fun increaseWords(words: List<Word>): Boolean {
@@ -34,8 +39,10 @@ class DaoWordImpl: DaoWord {
                 Words.batchInsert(words){
                     this[Words.english] = it.english
                     this[Words.chinese] = it.chinese
-                    this[Words.americaPronunciation] = it.americaPronunciation
-                    this[Words.englandPronunciation] = it.englandPronunciation
+                    this[Words.usPhonetic] = it.usPhonetic
+                    this[Words.ukPhonetic] = it.ukPhonetic
+                    this[Words.usSpeech] = it.usSpeech
+                    this[Words.ukSpeech] = it.ukSpeech
                 }.size == words.size
             }catch (e: Exception){
                 false
@@ -71,8 +78,9 @@ class DaoWordImpl: DaoWord {
                 val words = Words.select { Words.chinese like "%${chinese}%" }.map(::resultRowToWord).toMutableList()
                 if (words.isEmpty()) {
                     val searchFromYD = NetworkClient.searchFromYD(chinese, "zh-CHS", "en")
-                    searchFromYD.basic.explains.forEach {
-                        words.add(ydResponseToWord(NetworkClient.searchFromYD(it, "en", "zh-CHS")))
+                    searchFromYD.basic.explains.forEachIndexed { index, s ->
+                        if (index >= 3 && index % 3 == 0) delay(1_000)
+                        words.add(ydResponseToWord(NetworkClient.searchFromYD(s, "en", "zh-CHS")))
                     }
                 }
                 words
