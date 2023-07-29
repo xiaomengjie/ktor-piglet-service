@@ -1,7 +1,6 @@
 import bean.YDResponse
 import com.example.net.NetworkClient
 import kotlinx.coroutines.*
-import models.Word
 import kotlin.system.measureTimeMillis
 
 private val englishes = listOf("have", "be", "exist", "possess", "adsum")

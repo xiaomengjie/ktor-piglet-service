@@ -1,10 +1,14 @@
 package com.example.db.dao.password
 
+import com.example.aesDecrypt
 import com.example.db.DatabaseFactory
+import com.example.net.SSL
+import com.example.routes.aesKey
 import models.Password
 import models.Passwords
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
+import java.util.Base64
 
 class DaoPasswordImpl: DaoPassword {
 
@@ -20,7 +24,8 @@ class DaoPasswordImpl: DaoPassword {
             if (selectResult == null) {
                 val insertStatement = Passwords.insert {
                     it[name] = password.name
-                    it[content] = password.content
+                    val content = password.content.aesDecrypt()
+                    it[Passwords.content] = content
                     it[size] = password.size
                 }
                 insertStatement.resultedValues?.singleOrNull()?.let(::resultRowToPassword)
