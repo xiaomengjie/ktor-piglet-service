@@ -1,14 +1,12 @@
 package com.example.db.dao.password
 
 import com.example.aesDecrypt
+import com.example.aesEncrypt
 import com.example.db.DatabaseFactory
-import com.example.net.SSL
-import com.example.routes.aesKey
 import models.Password
 import models.Passwords
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
-import java.util.Base64
 
 class DaoPasswordImpl: DaoPassword {
 
@@ -18,19 +16,24 @@ class DaoPasswordImpl: DaoPassword {
         size = row[Passwords.size]
     )
 
-    override suspend fun increasePassword(password: Password): Password? =
+    private fun resultRowToEncryptPassword(row: ResultRow) = Password(
+        name = row[Passwords.name],
+        content = row[Passwords.content].aesEncrypt(),
+        size = row[Passwords.size]
+    )
+
+    override suspend fun increasePassword(password: Password): Boolean =
         DatabaseFactory.dbQuery {
             val selectResult = queryPassword(password.name)
             if (selectResult == null) {
                 val insertStatement = Passwords.insert {
                     it[name] = password.name
-                    val content = password.content.aesDecrypt()
-                    it[Passwords.content] = content
+                    it[content] = password.content.aesDecrypt()
                     it[size] = password.size
                 }
-                insertStatement.resultedValues?.singleOrNull()?.let(::resultRowToPassword)
+                insertStatement.resultedValues?.singleOrNull() != null
             } else {
-                if (updatePassword(password)) password else null
+                updatePassword(password)
             }
         }
 
@@ -50,7 +53,7 @@ class DaoPasswordImpl: DaoPassword {
         DatabaseFactory.dbQuery {
             Passwords.update({Passwords.name eq password.name}){
                 it[name] = password.name
-                it[content] = password.content
+                it[content] = password.content.aesDecrypt()
                 it[size] = password.size
             } > 0
         }
@@ -59,12 +62,12 @@ class DaoPasswordImpl: DaoPassword {
         DatabaseFactory.dbQuery {
             Passwords.select {
                 Passwords.name eq name
-            }.map(::resultRowToPassword).singleOrNull()
+            }.map(::resultRowToEncryptPassword).singleOrNull()
         }
 
     override suspend fun queryAllPassword(): List<Password> =
         DatabaseFactory.dbQuery {
-            Passwords.selectAll().map(::resultRowToPassword)
+            Passwords.selectAll().map(::resultRowToEncryptPassword)
         }
 }
 

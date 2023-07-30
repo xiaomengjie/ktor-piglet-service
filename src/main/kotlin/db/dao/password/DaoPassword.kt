@@ -5,7 +5,7 @@ import models.Password
 interface DaoPassword {
 
     //添加密码
-    suspend fun increasePassword(password: Password): Password?
+    suspend fun increasePassword(password: Password): Boolean
 
     //删除密码
     suspend fun deletePassword(name: String): Boolean

@@ -48,6 +48,3 @@
     7.验证配置：
         echo Hello World! > /usr/local/tomcat/webapps/ROOT/index.jsp
         http://119.91.136.187:8080
-
-        
-        

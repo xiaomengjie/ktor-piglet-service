@@ -26,6 +26,7 @@ fun String.aesEncrypt(): String{
  */
 fun String.aesDecrypt(): String{
     if (aesKey.isEmpty()) return this
+    println("aesKey = $aesKey")
     val cipher = Cipher.getInstance("AES/ECB/PKCS5Padding")
     val secretKeySpec = SecretKeySpec(aesKey.toByteArray(), "AES")
     cipher.init(Cipher.DECRYPT_MODE, secretKeySpec)
