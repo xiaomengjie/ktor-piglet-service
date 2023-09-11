@@ -16,11 +16,11 @@ import javax.crypto.Cipher
 
 var aesKey = ""
 
-private val privateKeyFilePath = "/root/private_key.pem"
-private val certificateFilePath = "/root/ssl_certificate.pem"
+//private val privateKeyFilePath = "/root/private_key.pem"
+//private val certificateFilePath = "/root/ssl_certificate.pem"
 
-//private val privateKeyFilePath = "./ssl/private_key.pem"
-//private val certificateFilePath = "./ssl/ssl_certificate.pem"
+private val privateKeyFilePath = "./ssl/private_key.pem"
+private val certificateFilePath = "./ssl/ssl_certificate.pem"
 
 fun Route.ssl(){
     route("/ssl"){

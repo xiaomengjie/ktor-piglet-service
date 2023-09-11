@@ -4,7 +4,6 @@ import com.example.db.DatabaseFactory
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import com.example.plugins.*
-import io.ktor.server.routing.*
 import io.ktor.server.tomcat.*
 
 fun main() {
